@@ -10,7 +10,7 @@ class RecommendRequestDTO:
 
 @dataclass
 class ParsedFeatureDTO:
-    id: int
+    id: str
     value: str
 
 
@@ -19,4 +19,4 @@ class ChoiceCreateRequestDTO:
     user_id: str
     text: str
     parsed_features: List[Dict[str, Any]]
-    selected_menu_id: int
+    selected_menu_id: str

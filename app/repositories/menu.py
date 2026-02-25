@@ -1,4 +1,5 @@
 from typing import List, Optional
+from uuid import UUID
 
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -25,7 +26,7 @@ class MenuRepository:
         menus = query.scalars().all()
         return [MenuModelDTO.from_model(m) for m in menus]
 
-    async def find_by_id(self, menu_id: int) -> Optional[MenuModelDTO]:
+    async def find_by_id(self, menu_id: UUID) -> Optional[MenuModelDTO]:
         query = await self.db.execute(select(Menu).where(Menu.id == menu_id))
         menu = query.scalars().one_or_none()
         return MenuModelDTO.from_model(menu) if menu else None

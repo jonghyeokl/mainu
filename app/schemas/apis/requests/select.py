@@ -9,7 +9,7 @@ from app.schemas.dtos.recommend import ChoiceCreateRequestDTO
 class SelectRequestBody(BaseModel):
     user_id: str = Field(..., description="User ID")
     text: str = Field(..., description="Original natural language input")
-    menu_id: int = Field(..., description="Selected menu ID")
+    menu_id: str = Field(..., description="Selected menu ID (UUID)")
     parsed_features: List[Dict[str, Any]] = Field(..., description="Parsed features from LLM")
 
     def to_choice_create_request_dto(self) -> ChoiceCreateRequestDTO:

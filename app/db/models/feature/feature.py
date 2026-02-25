@@ -1,18 +1,19 @@
 import datetime
+import uuid
 
 from app.db.base import Base
 
 from sqlalchemy import Column
 from sqlalchemy import DateTime
-from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy.dialects.postgresql import UUID
 
 
 class Feature(Base):
     __tablename__ = "features"
 
-    feature_id = Column(Integer, primary_key=True, autoincrement=True)
+    feature_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     feature = Column(String, nullable=False)
     available_values = Column(ARRAY(String), nullable=False)
 

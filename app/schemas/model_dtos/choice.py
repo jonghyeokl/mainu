@@ -11,7 +11,7 @@ class ChoiceModelDTO(BaseModel):
     user_id: str
     text: str
     parsed_features: List[Dict[str, Any]]
-    selected_menu_id: int
+    selected_menu_id: str
     created_dt: datetime
     updated_dt: datetime
 
@@ -22,7 +22,7 @@ class ChoiceModelDTO(BaseModel):
             user_id=str(model.user_id),
             text=model.text,
             parsed_features=model.parsed_features,
-            selected_menu_id=model.selected_menu_id,
+            selected_menu_id=str(model.selected_menu_id),
             created_dt=model.created_dt,
             updated_dt=model.updated_dt,
         )

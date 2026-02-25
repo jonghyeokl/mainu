@@ -29,7 +29,7 @@ class ChoiceRepository:
             user_id=UUID(dto.user_id),
             text=dto.text,
             parsed_features=dto.parsed_features,
-            selected_menu_id=dto.selected_menu_id,
+            selected_menu_id=UUID(dto.selected_menu_id),
             created_dt=now,
             updated_dt=now,
         )

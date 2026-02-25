@@ -11,8 +11,12 @@ from app.utils.orjson_serializer import orjson_serializer
 if os.getenv("DATABASE_URL") is None:
     load_dotenv(".env")
 
+DATABASE_URL = os.getenv("DATABASE_URL")
+if DATABASE_URL is None:
+    raise RuntimeError("DATABASE_URL environment variable is not set")
+
 async_engine = create_async_engine(
-    os.getenv("DATABASE_URL"),
+    DATABASE_URL,
     future=True,
     pool_pre_ping=True,
     json_serializer=orjson_serializer,

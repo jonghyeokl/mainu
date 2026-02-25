@@ -4,12 +4,12 @@ from app.db.models.menu.menu import Menu
 
 
 class MenuModelDTO(BaseModel):
-    id: int
+    id: str
     name: str
 
     @classmethod
     def from_model(cls, model: Menu) -> "MenuModelDTO":
         return cls(
-            id=model.id,
+            id=str(model.id),
             name=model.name,
         )
