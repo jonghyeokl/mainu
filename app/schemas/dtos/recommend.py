@@ -10,7 +10,7 @@ class RecommendRequestDTO:
 
 @dataclass
 class ParsedFeatureDTO:
-    id: str
+    feature_id: str
     value: str
 
 

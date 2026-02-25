@@ -69,7 +69,7 @@ class RecommendService:
         ]
 
         prompt = f"""아래 문장을 분석하여 ALLOWED_FEATURES에 정의된 값 중에서만 선택해 JSON 배열로 반환해.
-반드시 다음 형식으로만 출력해: [{{"id": <feature_id>, "value": "<value>"}}]
+반드시 다음 형식으로만 출력해: [{{"feature_id": <feature_id>, "value": "<value>"}}]
 다른 텍스트나 설명은 절대 포함하지 마. 오직 JSON 배열만 출력해.
 해당 없는 feature는 포함하지 마.
 
@@ -93,10 +93,8 @@ ALLOWED_FEATURES:
         parsed_features: List[Dict[str, Any]],
         menus: List[MenuModelDTO],
     ) -> List[MenuModelDTO]:
-        menu_list = [{"id": m.id, "name": m.name} for m in menus]
-
         prompt = f"""아래 사용자 선호 features를 바탕으로 MENU_LIST에서 가장 잘 맞는 메뉴 상위 5개를 추천해.
-반드시 다음 형식으로만 출력해: [{{"id": <menu_id>, "name": "<menu_name>"}}]
+반드시 다음 형식으로만 출력해: ["<menu_name>", "<menu_name>", ...]
 다른 텍스트나 설명은 절대 포함하지 마. 오직 JSON 배열만 출력해.
 MENU_LIST에 없는 메뉴는 절대 포함하지 마.
 
@@ -104,7 +102,7 @@ USER_FEATURES:
 {json.dumps(parsed_features, ensure_ascii=False)}
 
 MENU_LIST:
-{json.dumps(menu_list, ensure_ascii=False)}"""
+{json.dumps([m.name for m in menus], ensure_ascii=False)}"""
 
         response_text = await self._call_gemini(prompt)
 
@@ -112,12 +110,11 @@ MENU_LIST:
             start = response_text.find("[")
             end = response_text.rfind("]") + 1
             parsed = json.loads(response_text[start:end])
-            menu_map = {m.id: m for m in menus}
+            menu_map = {m.name: m for m in menus}
             result = []
-            for item in parsed:
-                menu_id = item.get("id")
-                if menu_id in menu_map:
-                    result.append(menu_map[menu_id])
+            for name in parsed:
+                if name in menu_map:
+                    result.append(menu_map[name])
             return result
         except (json.JSONDecodeError, ValueError):
             return []

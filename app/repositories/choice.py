@@ -25,7 +25,7 @@ class ChoiceRepository:
     async def create(self, dto: ChoiceCreateRequestDTO) -> ChoiceModelDTO:
         now = datetime.datetime.utcnow()
         new_choice = Choice(
-            id=uuid.uuid4(),
+            choice_id=uuid.uuid4(),
             user_id=UUID(dto.user_id),
             text=dto.text,
             parsed_features=dto.parsed_features,

@@ -12,7 +12,7 @@ from sqlalchemy.dialects.postgresql import UUID
 class Menu(Base):
     __tablename__ = "menus"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    menu_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, nullable=False)
 
     created_dt = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)

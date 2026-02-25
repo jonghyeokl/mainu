@@ -7,7 +7,7 @@ from app.db.models.choice.choice import Choice
 
 
 class ChoiceModelDTO(BaseModel):
-    id: str
+    choice_id: str
     user_id: str
     text: str
     parsed_features: List[Dict[str, Any]]
@@ -18,7 +18,7 @@ class ChoiceModelDTO(BaseModel):
     @classmethod
     def from_model(cls, model: Choice) -> "ChoiceModelDTO":
         return cls(
-            id=str(model.id),
+            choice_id=str(model.choice_id),
             user_id=str(model.user_id),
             text=model.text,
             parsed_features=model.parsed_features,

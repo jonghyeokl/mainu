@@ -14,7 +14,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 class Choice(Base):
     __tablename__ = "choices"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    choice_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.user_id"), nullable=False)
     text = Column(String, nullable=False)
     parsed_features = Column(JSONB, nullable=False)
