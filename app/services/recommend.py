@@ -68,10 +68,11 @@ class RecommendService:
             for f in features
         ]
 
-        prompt = f"""아래 문장을 분석하여 ALLOWED_FEATURES에 정의된 값 중에서만 선택해 JSON 배열로 반환해.
+        prompt = f"""아래 문장을 분석하여, ALLOWED_FEATURES의 available_values에 해당하는 값만 골라 JSON 배열로 반환해.
 반드시 다음 형식으로만 출력해: [{{"feature_id": <feature_id>, "value": "<value>"}}]
 다른 텍스트나 설명은 절대 포함하지 마. 오직 JSON 배열만 출력해.
-해당 없는 feature는 포함하지 마.
+문장에 ALLOWED_FEATURES에 없는 표현이 있으면 무시하고, ALLOWED_FEATURES에 있는 것만 추출해.
+매칭되는 것이 하나도 없으면 빈 배열 []을 반환해.
 
 ALLOWED_FEATURES:
 {json.dumps(allowed_features, ensure_ascii=False)}
